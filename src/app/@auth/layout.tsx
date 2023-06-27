@@ -9,27 +9,23 @@ import LoginPhoneBg from '@/assets/images/home-phones-bg.png';
 import HomeInstagramImage from '@/assets/images/home-instagram.png';
 import DetailInstagramImage from '@/assets/images/detail-instagram.png';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation';
 
 const images = [HomeInstagramImage, DetailInstagramImage];
 
-const AuthLayout = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const [imageIndex, setImageIndex] = useState(0);
 
-  const pathname = usePathname()
+  const pathname = usePathname();
 
-  const isLoginPage = pathname === "/"
+  const isLoginPage = pathname === '/';
 
   useEffect(() => {
     const changeImageInterval = setInterval(() => {
       setImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
     }, 4000);
 
-    return () => clearInterval(changeImageInterval)
+    return () => clearInterval(changeImageInterval);
   }, [imageIndex]);
 
   return (
@@ -43,9 +39,9 @@ const AuthLayout = ({
         <div className="hidden md:block md:relative h-[480px] w-[350px]">
           <div className="absolute w-full h-full top-0 left-[5px] ">
             <Image className="object-contain" fill src={LoginPhoneBg} alt="" />
-            <div className="absolute w-[90%] h-[85.5%] top-[22px] left-[55px]">
+            <div className="absolute w-[90%] h-[85.5%] top-[22px] left-[55px] animate-slowly-appear">
               <Image
-                className="object-contain"
+                className="object-contain "
                 fill
                 src={images[imageIndex]}
                 alt=""
@@ -61,13 +57,23 @@ const AuthLayout = ({
           </div>
           <div className="w-[220px] mx-auto">{children}</div>
         </div>
-        {isLoginPage && (
-          <div className='sm:p-5 sm:border sm:border-gray-300 flex items-center justify-center mt-3'>
-            <p className='text-xs'>Don&apos;t have an account? {" "}
-                <Link href="/accounts/emailsignup"><span className='text-blue-500 font-medium'>Sign up</span></Link>
-              </p>
-          </div>
-        )}
+        <div className="sm:p-5 sm:border sm:border-gray-300 flex items-center justify-center mt-3">
+          {!isLoginPage ? (
+            <p className="text-xs">
+              Have an account?{' '}
+              <Link href="/">
+                <span className="text-blue-500 font-medium">Log in</span>
+              </Link>
+            </p>
+          ) : (
+            <p className="text-xs">
+              Don&apos;t have an account?{' '}
+              <Link href="/accounts/emailsignup">
+                <span className="text-blue-500 font-medium">Sign up</span>
+              </Link>
+            </p>
+          )}
+        </div>
         <div className="my-9 flex justify-center items-center flex-col gap-4">
           <p className="text-xs">Get the app.</p>
           <div className="flex items-center gap-2">

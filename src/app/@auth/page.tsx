@@ -20,7 +20,7 @@ const Login = (props: Props) => {
           type="password"
           placeholder="Password"
         />
-        <Button variant={'blue'} className="w-full mt-4 h-6 text-xs">
+        <Button variant={'blue'} className="w-full mt-4 h-7 text-xs">
           Log in
         </Button>
       </form>
