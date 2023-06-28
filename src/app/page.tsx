@@ -3,8 +3,16 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button variant={'default'} >Click me</Button>
+    <main className="w-full grid grid-cols-5 gap-20 min-h-screen ">
+        <div className='col-span-3 flex justify-end'>
+          
+          <div className='flex-1 max-w-xl'>
+asdasds
+          </div>
+        </div>
+        <div className='col-span-2'>
+        ashdjashjd
+        </div>
     </main>
   )
 }
