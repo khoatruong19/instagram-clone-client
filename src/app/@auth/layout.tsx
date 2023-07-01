@@ -36,12 +36,12 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       )}
     >
       {isLoginPage && (
-        <div className="hidden md:block md:relative h-[480px] w-[350px]">
-          <div className="absolute w-full h-full top-0 left-[5px] ">
+        <div className="hidden md:block md:relative w-[450px] h-[800px]">
+          <div className="absolute top-0 left-[5px] w-full h-full">
             <Image className="object-contain" fill src={LoginPhoneBg} alt="" />
-            <div className="absolute w-[90%] h-[85.5%] top-[22px] left-[55px] animate-slowly-appear">
+            <div className="absolute w-[55%] h-[100%] top-[-20px] left-[33%] animate-slowly-appear">
               <Image
-                className="object-contain "
+                className="object-contain"
                 fill
                 src={images[imageIndex]}
                 alt=""
@@ -55,18 +55,18 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="relative h-14 mb-4">
             <Image className="object-contain" src={Logo} fill alt="" />
           </div>
-          <div className="w-[220px] mx-auto">{children}</div>
+          <div className="w-[265px] mx-auto">{children}</div>
         </div>
         <div className="sm:p-5 sm:border sm:border-gray-300 flex items-center justify-center mt-3">
           {!isLoginPage ? (
-            <p className="text-xs">
+            <p className="text-regular">
               Have an account?{' '}
               <Link href="/">
                 <span className="text-blue-500 font-medium">Log in</span>
               </Link>
             </p>
           ) : (
-            <p className="text-xs">
+            <p className="text-regular">
               Don&apos;t have an account?{' '}
               <Link href="/accounts/emailsignup">
                 <span className="text-blue-500 font-medium">Sign up</span>
@@ -75,7 +75,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           )}
         </div>
         <div className="my-9 flex justify-center items-center flex-col gap-4">
-          <p className="text-xs">Get the app.</p>
+          <p className="text-regular">Get the app.</p>
           <div className="flex items-center gap-2">
             <Image
               className="object-cover"

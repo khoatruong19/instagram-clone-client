@@ -15,7 +15,7 @@ const NavItem = ({ item, isActive, isProfileNav = false }: Props) => {
   return (
       <Link
         className={cn(
-          'group w-full flex items-end gap-3 p-2 hover:bg-gray-200 rounded-md',
+          'group w-full flex items-end gap-4 py-2 px-3 hover:bg-gray-200 rounded-md',
           {
             'font-bold': isActive,
           }
@@ -24,18 +24,18 @@ const NavItem = ({ item, isActive, isProfileNav = false }: Props) => {
       >
         {isProfileNav ? (
           <>
-            <div className="w-5 h-5 rounded-full bg-red-400" />
-            <span className="hidden lg:inline-block text-regular">Profile</span>
+            <div className="w-5 h-5 rounded-full bg-red-400 ml-1" />
+            <span className="hidden lg:inline-block">Profile</span>
           </>
         ) : (
           <>
             <Icon
-              size={20}
+              size={25}
               strokeWidth={isActive ? 3 : 2}
               style={{ marginBottom: '0.1rem' }}
               className='group-hover:scale-105'
             />
-            <span className="hidden lg:inline-block text-regular">{title}</span>
+            <span className="hidden lg:inline-block">{title}</span>
           </>
         )}
       </Link>
