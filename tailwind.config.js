@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     fontSize: {
       xs: '12px',
-      regular: '13px'
+      regular: '13px',
+      base: '14px'
     },
     container: {
       center: true,
