@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
-import { NUMBER_OF_MOVE_STORIES, NUMBER_OF_SHOW_STORIES, TRANSLATE_PIXELS_PER_STORY } from './constants';
+import { NUMBER_OF_MOVE_STORIES, NUMBER_OF_SHOW_STORIES, TRANSLATE_PIXELS_PER_STORY } from './utils/constants';
 import StoryItem from './story-item';
 
 type Props = {};

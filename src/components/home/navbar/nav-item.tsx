@@ -1,5 +1,5 @@
 import React from 'react';
-import { INavItem } from './interfaces';
+import { INavItem } from './utils/interfaces';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 

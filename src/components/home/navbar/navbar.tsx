@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { MORE_NAV_ITEM, NAV_ITEMS } from './constants';
+import { MORE_NAV_ITEM, NAV_ITEMS } from './utils/constants';
 import NavItem from './nav-item';
 import Image from 'next/image';
 import Logo from '@/assets/images/logo.png';
 import { Instagram } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { INavItem } from './interfaces';
+import { INavItem } from './utils/interfaces';
 import Link from 'next/link';
 
 type Props = {};
