@@ -1,4 +1,4 @@
-import Navbar from '@/components/home/navbar';
+import Navbar from '@/components/home/navbar/navbar';
 import './globals.css';
 import { Roboto } from 'next/font/google';
 import Providers from './providers';
@@ -6,6 +6,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import _ from 'lodash';
 import JWTManager from "@/lib/jwt"
+import { headers } from 'next/headers';
 
 const roboto = Roboto({
   weight: ['400', '300', '500', '700', '900'],

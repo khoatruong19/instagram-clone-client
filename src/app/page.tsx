@@ -26,9 +26,9 @@ export default function Home() {
   }, [data]);
 
   return (
-    <main className="w-full grid grid-cols-5 gap-16 min-h-screen ">
-      <div className="col-span-3 flex justify-end">
-        <div onClick={handleClick} className="flex-1 max-w-[648px]">
+    <main className="w-full grid grid-cols-5 gap-14 min-h-screen ">
+      <div className="col-span-3 flex justify-end pr-12">
+        <div className="max-w-[640px]">
           <Feeds/>
         </div>
       </div>
