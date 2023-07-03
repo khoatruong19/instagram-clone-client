@@ -1,6 +1,9 @@
+"use client"
+
 import { cn } from '@/lib/utils';
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   image: string;
@@ -8,10 +11,13 @@ type Props = {
 
 const StoryItem = (props: Props) => {
   const { image } = props;
+  const router = useRouter()
 
   const isSeen = false;
+
+
   return (
-    <div className="max-w-[70px] flex flex-col gap-1 items-center justify-center cursor-pointer">
+    <div onClick={() => router.push("/stories/sdjfkl/sdjflk")} className="max-w-[70px] flex flex-col gap-1 items-center justify-center cursor-pointer">
       <div
         className={cn(
           'relative rounded-full w-16 h-16 overflow-hidden border-2 border-red-400',
