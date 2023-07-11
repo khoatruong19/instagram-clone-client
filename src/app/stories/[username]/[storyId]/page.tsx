@@ -1,31 +1,48 @@
 'use client';
 
 import StoryCard from '@/components/home/feeds/story-card';
-import { START_INDEX_TO_TRANSLATE_STORY_CARDS } from '@/components/home/feeds/utils/constants';
 import { cn } from '@/lib/utils';
-import _ from 'lodash';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 
 type Props = {
   params: { username: string; storyId: string };
 };
 
-const Stories = (props: Props) => {
+const arrayLength = 4;
 
-  const [watchingStoryIndex, setWatchingStoryIndex] = useState(0)
+const Stories = (props: Props) => {
+  const [watchingStoryIndex, setWatchingStoryIndex] = useState(0);
+
+  const renderStoryCardByIndex = (index: number) => (
+    <StoryCard
+      key={index}
+      isLastItem={index === 9}
+      index={index}
+      isWatching={index === watchingStoryIndex}
+      setWatchingStoryIndex={setWatchingStoryIndex}
+    />
+  );
 
   return (
-    <div className={cn("ml-auto h-screen overflow-x-auto scrollbar-none", {
-      "w-[100%]": watchingStoryIndex >= 2,
-      "w-[85%]": watchingStoryIndex === 1,
-      "w-[68%]": watchingStoryIndex === 0
-    })}>
-      <div className="w-fit h-full flex items-center gap-16 pl-12">
-        {_.range(10).map((item, index) => (
-          <StoryCard isLastItem={index === 9} index={index} isWatching={item === watchingStoryIndex}
-            setWatchingStoryIndex={setWatchingStoryIndex} />
-        ))}
+    <div className={cn('ml-auto h-screen w-screen')}>
+      <div className="w-full h-full flex items-center justify-center gap-16 px-12 pt-10">
+        <div className="min-w-[28vw]   flex items-center justify-end gap-16 h-full">
+          {watchingStoryIndex > 1 &&
+            renderStoryCardByIndex(watchingStoryIndex - 2)}
+          {watchingStoryIndex > 0 &&
+            renderStoryCardByIndex(watchingStoryIndex - 1)}
+        </div>
+
+        <div className="w-fit h-full">
+          {renderStoryCardByIndex(watchingStoryIndex)}
+        </div>
+
+        <div className="min-w-[28vw] flex items-center gap-16  h-full">
+          {arrayLength - watchingStoryIndex >= 2 &&
+            renderStoryCardByIndex(watchingStoryIndex + 1)}
+          {arrayLength - watchingStoryIndex >= 3 &&
+            renderStoryCardByIndex(watchingStoryIndex + 2)}
+        </div>
       </div>
     </div>
   );

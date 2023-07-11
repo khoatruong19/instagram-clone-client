@@ -113,6 +113,8 @@ const StoryCard = (props: Props) => {
     console.log(ref.current?.getBoundingClientRect().width)
   },[ref])
 
+  if(index < 0) return null
+
   return (
     <div
     ref={ref}
