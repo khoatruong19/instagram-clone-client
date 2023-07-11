@@ -32,7 +32,7 @@ const StoryCard = (props: Props) => {
   const handleScrollStories = useCallback((dir: ScrollDirection) => {
     if (dir === "back" && index > 0) setWatchingStoryIndex(index - 1)
     if (dir === "next" && !isLastItem) setWatchingStoryIndex(index + 1)
-  }, [setWatchingStoryIndex])
+  }, [index, isLastItem, setWatchingStoryIndex])
 
   const renderSlideButton = () => (
     <>
@@ -109,6 +109,14 @@ const StoryCard = (props: Props) => {
     </div>
   );
 
+  const renderNotWatchingInfo = () => (
+    <div className='flex flex-col absolute 
+    top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]'>
+      <StoryItem image={sr1} customClassName='flex-col text-base max-w-[100px]' isSeen={isWatching} />
+      <span className="text-slate-400 text-center">4h</span>
+    </div>
+  )
+
   useEffect(() => {
     console.log(ref.current?.getBoundingClientRect().width)
   },[ref])
@@ -131,13 +139,7 @@ const StoryCard = (props: Props) => {
           {renderSlideButton()}
           {renderBottomCardActions()}
         </>
-      ) : (
-        <div className='flex flex-col absolute 
-        top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]'>
-          <StoryItem image={sr1} customClassName='flex-col text-base max-w-[100px]' isSeen={isWatching} />
-          <span className="text-slate-400 text-center">4h</span>
-        </div>
-      )}
+      ) : renderNotWatchingInfo()}
     </div>
   );
 };
