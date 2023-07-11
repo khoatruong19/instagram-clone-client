@@ -38,9 +38,9 @@ const Stories = (props: Props) => {
         </div>
 
         <div className="min-w-[28vw] flex items-center gap-16  h-full">
-          {arrayLength - watchingStoryIndex >= 2 &&
+          {arrayLength - watchingStoryIndex - 1 >= 1 &&
             renderStoryCardByIndex(watchingStoryIndex + 1)}
-          {arrayLength - watchingStoryIndex >= 3 &&
+          {arrayLength - watchingStoryIndex - 1 >= 2 &&
             renderStoryCardByIndex(watchingStoryIndex + 2)}
         </div>
       </div>
