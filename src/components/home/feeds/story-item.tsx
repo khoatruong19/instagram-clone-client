@@ -26,7 +26,7 @@ const StoryItem = (props: Props) => {
           }
         )}
       >
-        <Image className="rounded-full p-0.5" fill alt="" src={image} />
+        <Image className="rounded-full p-0.5" fill alt="" src="https://github.com/shadcn.png" />
       </div>
       <p className="w-full truncate">watchme990</p>
     </div>

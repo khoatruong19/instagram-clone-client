@@ -26,7 +26,7 @@ export default function Home() {
   }, [data]);
 
   return (
-    <main className="w-full grid grid-cols-5 gap-14 min-h-screen ">
+    <main className="w-full grid grid-cols-5 gap-14 max-h-screen overflow-auto ">
       <div className="col-span-3 flex justify-end pr-12">
         <div className="max-w-[640px]">
           <Feeds/>

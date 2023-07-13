@@ -69,7 +69,7 @@ const Stories = (props: Props) => {
   }, [scrollProcess]);
 
   return (
-    <div className="relative w-full ml-5 overflow-hidden">
+    <div className="relative w-full  overflow-hidden">
       {canScrollStories.back && (
         <div
           onClick={() => handleScrollStories('back')}

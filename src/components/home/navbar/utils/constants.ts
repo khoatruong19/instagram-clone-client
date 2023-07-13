@@ -51,7 +51,7 @@ export const NAV_ITEMS: INavItem[] = [
   {
     title: 'Create',
     icon: PlusSquare,
-    url: '/create',
+    url: '/create-post',
     mobileDisplay: true,
   },
   {

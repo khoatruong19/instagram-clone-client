@@ -5,7 +5,7 @@ type Props = {}
 
 const Posts = (props: Props) => {
   return (
-    <div>
+    <div className='max-w-[460px] w-full mx-auto mt-16 flex flex-col gap-5'>
       <PostCard/>
       <PostCard/>
       <PostCard/>
