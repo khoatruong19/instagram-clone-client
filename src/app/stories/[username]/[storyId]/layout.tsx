@@ -13,7 +13,7 @@ const StoriesLayout = ({ children }: { children: React.ReactNode }) => {
     const handleNavigateToHome = () => router.replace('/')
 
     return (
-        <div className='fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#191919] text-white'>
+        <div className='z-[99999] fixed top-0 left-0 w-[100vw] h-[100vh] bg-storiesBg text-white'>
             <div onClick={handleNavigateToHome} className='absolute left-4 top-4 cursor-pointer'>
                 <Image
                     className="hidden lg:block"

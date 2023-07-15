@@ -3,7 +3,11 @@
 import _ from 'lodash';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
-import { NUMBER_OF_MOVE_STORIES, NUMBER_OF_SHOW_STORIES, TRANSLATE_PIXELS_PER_STORY } from './utils/constants';
+import {
+  NUMBER_OF_MOVE_STORIES,
+  NUMBER_OF_SHOW_STORIES,
+  TRANSLATE_PIXELS_PER_STORY,
+} from './utils/constants';
 import StoryItem from './story-item';
 
 type Props = {};
@@ -13,12 +17,12 @@ export const sr1 =
 const sr2 =
   'https://instagram.fsgn2-8.fna.fbcdn.net/v/t51.2885-19/152740457_1120519425056114_4381039850149189509_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fsgn2-8.fna.fbcdn.net&_nc_cat=102&_nc_ohc=N4LpCLvzWdEAX_xKAac&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfD7_EIK4uCbXb1egjwSMVQXZraD8N3yE8PfjWKm8neUhQ&oe=64A66014&_nc_sid=8b3546';
 
-const arrayLength = 26
+const arrayLength = 26;
 
 const Stories = (props: Props) => {
   const [scrollProcess, setScrollProcess] = useState<{
-    dir: ScrollDirection,
-    index: number
+    dir: ScrollDirection;
+    index: number;
   }>({
     dir: 'next',
     index: 0,
@@ -27,23 +31,23 @@ const Stories = (props: Props) => {
   const canScrollStories = useMemo(() => {
     return {
       back: scrollProcess.index !== 0,
-      next: scrollProcess.index < arrayLength - NUMBER_OF_SHOW_STORIES
-    }
-  }, [scrollProcess])
+      next: scrollProcess.index < arrayLength - NUMBER_OF_SHOW_STORIES,
+    };
+  }, [scrollProcess]);
 
   const handleScrollStories = useCallback(
     (dir: ScrollDirection) => {
-      const restStoriesAfterExactPages = arrayLength % NUMBER_OF_SHOW_STORIES
-      const restStoriesLength = arrayLength - (scrollProcess.index + NUMBER_OF_SHOW_STORIES)
+      const restStoriesAfterExactPages = arrayLength % NUMBER_OF_SHOW_STORIES;
+      const restStoriesLength =
+        arrayLength - (scrollProcess.index + NUMBER_OF_SHOW_STORIES);
 
-      let storiesToMove = NUMBER_OF_MOVE_STORIES
+      let storiesToMove = NUMBER_OF_MOVE_STORIES;
 
       if (dir === 'next') {
+        if (!canScrollStories.next) return;
 
-        if (!canScrollStories.next) return
-
-
-        if (restStoriesLength < NUMBER_OF_MOVE_STORIES) storiesToMove = restStoriesAfterExactPages
+        if (restStoriesLength < NUMBER_OF_MOVE_STORIES)
+          storiesToMove = restStoriesAfterExactPages;
 
         setScrollProcess({
           dir: 'next',
@@ -52,24 +56,27 @@ const Stories = (props: Props) => {
         return;
       }
 
-      if (!canScrollStories.back) return
+      if (!canScrollStories.back) return;
 
       setScrollProcess({
         dir: 'back',
-        index: restStoriesLength === 0 ? scrollProcess.index - restStoriesAfterExactPages : scrollProcess.index - NUMBER_OF_MOVE_STORIES,
+        index:
+          restStoriesLength === 0
+            ? scrollProcess.index - restStoriesAfterExactPages
+            : scrollProcess.index - NUMBER_OF_MOVE_STORIES,
       });
     },
     [canScrollStories]
   );
 
   const transformPixel = useMemo(() => {
-    const pixelsToTranslate = scrollProcess.index * TRANSLATE_PIXELS_PER_STORY
+    const pixelsToTranslate = scrollProcess.index * TRANSLATE_PIXELS_PER_STORY;
 
-    return `-${pixelsToTranslate}px`
+    return `-${pixelsToTranslate}px`;
   }, [scrollProcess]);
 
   return (
-    <div className="relative w-full  overflow-hidden">
+    <div className="relative w-full overflow-hidden">
       {canScrollStories.back && (
         <div
           onClick={() => handleScrollStories('back')}

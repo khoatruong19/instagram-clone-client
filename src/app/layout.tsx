@@ -30,7 +30,7 @@ export default async function RootLayout({
       <body className={roboto.className}>
         <Providers>
           {session ? (
-            <div className="flex">
+            <div className="main flex">
               <Navbar />
               {children}
             </div>

@@ -1,6 +1,8 @@
 'use client';
 
 import Feeds from '@/components/home/feeds';
+import { usePopupContext } from '@/context/popup-context';
+import { POPUP } from '@/context/popup-context/constants';
 import JWTManager from '@/lib/jwt';
 import { authService } from '@/services/authService';
 import _ from 'lodash';
@@ -9,6 +11,7 @@ import { useEffect } from 'react';
 
 export default function Home() {
   const { data } = useSession();
+  const popupContext = usePopupContext()
 
   const handleClick = async () => {
     try {
@@ -26,9 +29,10 @@ export default function Home() {
   }, [data]);
 
   return (
-    <main className="w-full grid grid-cols-5 gap-14 max-h-screen overflow-auto ">
+    <main className="w-full grid grid-cols-5 gap-14 max-h-screen overflow-auto">
       <div className="col-span-3 flex justify-end pr-12">
         <div className="max-w-[640px]">
+          <button onClick={() => popupContext?.showPopup(POPUP.CREATE_POST)}>Click me bitch</button>
           <Feeds/>
         </div>
       </div>
