@@ -24,7 +24,7 @@ const Navbar = (props: Props) => {
   }, [pathname]);
 
   return (
-  <div className="lg:w-[17vw] border-r border-gray-200 md:h-[100vh] z-50 fixed bottom-0 w-[100%] md:w-fit md:relative">
+  <div className="lg:w-[20vw] border-r border-gray-200 md:h-[100vh] z-50 fixed bottom-0 w-[100%] md:w-fit md:relative">
       <div className="relative h-full flex md:flex-col gap-4 lg:py-4 px-2 sm:px-12 md:px-3 justify-between md:justify-start">
         <Link href="/" className="mt-4 mb-5 lg:p-0">
           <Image

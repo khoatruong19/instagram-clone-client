@@ -11,7 +11,10 @@ module.exports = {
     fontSize: {
       xs: '12px',
       regular: '13px',
-      base: '14px'
+      base: '14px',
+      md: '16px',
+      lg: '20px',
+      xl: '24px',
     },
     container: {
       center: true,

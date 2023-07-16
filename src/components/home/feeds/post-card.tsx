@@ -83,7 +83,7 @@ const PostCard = (props: Props) => {
         )}
         <span className='cursor-pointer hover:opacity-70'><Smile size={14} className='text-gray-500'/></span>
       </form>
-      <DividerWithText className='gap-0' dividerClassname='w-full'/>
+      <DividerWithText noText/>
     </div>
   );
 };

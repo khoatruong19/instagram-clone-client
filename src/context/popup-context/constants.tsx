@@ -1,4 +1,4 @@
-import CreatePostPopup from './components/create-post-popup';
+import CreatePostPopup from "./components/create-post-popup";
 
 export enum POPUP {
   CREATE_POST = 'create-post',
