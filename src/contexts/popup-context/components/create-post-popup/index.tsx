@@ -25,7 +25,6 @@ const CreatePostPopup = (props: Props) => {
   // })
 
   const renderStepElement = useCallback(() => {
-    console.log({createPostStep})
     if (createPostStep === 1) return <SelectFiles handleOnChangeFiles={handleOnChangeFiles} />;
     if (createPostStep === 2) return <ImagesDropReorder files={files} handleBackToStepOne={() => handleBackToStep(1)} />;
     return null;
