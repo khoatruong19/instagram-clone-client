@@ -65,6 +65,9 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow:{
+        "equal": "rgba(0, 0, 0, 0.35) 0px 5px 15px;"
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

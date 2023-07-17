@@ -1,8 +1,8 @@
 'use client';
 
 import Feeds from '@/components/home/feeds';
-import { usePopupContext } from '@/context/popup-context';
-import { POPUP } from '@/context/popup-context/constants';
+import { usePopupContext } from '@/contexts/popup-context';
+import { POPUP } from '@/contexts/popup-context/constants';
 import JWTManager from '@/lib/jwt';
 import { authService } from '@/services/authService';
 import _ from 'lodash';
@@ -15,9 +15,7 @@ export default function Home() {
 
   const handleClick = async () => {
     try {
-      console.log(JWTManager.getToken());
       const { data } = await authService.me();
-      console.log({ data });
     } catch (error) {
       console.log({ error });
     }

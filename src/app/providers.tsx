@@ -3,7 +3,7 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';
-import { PopupProvider } from '@/context/popup-context';
+import { PopupProvider } from '@/contexts/popup-context';
 
 const queryClient = new QueryClient();
 

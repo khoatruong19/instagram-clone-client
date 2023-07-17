@@ -2,6 +2,7 @@ import Navbar from '@/components/home/navbar';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 import Providers from './providers';
+import 'react-image-crop/dist/ReactCrop.css'
 
 const roboto = Roboto({
   weight: ['400', '300', '500', '700', '900'],

@@ -12,3 +12,12 @@ export const POPUP_ELEMENTS = {
 type PopupElementsKeys = keyof typeof POPUP_ELEMENTS;
 
 export type PopupElementsValues = (typeof POPUP_ELEMENTS)[PopupElementsKeys];
+
+export const ASPECT_RATION_TAILWIND_CLASS = {
+  "original": "",
+  "1:1": "aspect-square",
+  "4:5": "aspect-[4/5]",
+  "16:9": "aspect-video",
+}
+
+export type AspectOptionKeys = keyof typeof ASPECT_RATION_TAILWIND_CLASS

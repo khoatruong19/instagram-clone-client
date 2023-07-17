@@ -16,7 +16,7 @@ const Stories = (props: Props) => {
   const renderStoryCardByIndex = (index: number) => (
     <StoryCard
       key={index}
-      isLastItem={index === 9}
+      isLastItem={index === arrayLength - 1}
       index={index}
       isWatching={index === watchingStoryIndex}
       setWatchingStoryIndex={setWatchingStoryIndex}
@@ -26,7 +26,7 @@ const Stories = (props: Props) => {
   return (
     <div className={cn('ml-auto h-screen w-screen')}>
       <div className="w-full h-full flex items-center justify-center gap-16 px-12 pt-10">
-        <div className="min-w-[28vw]   flex items-center justify-end gap-16 h-full">
+        <div className="min-w-[28vw] flex items-center justify-end gap-16 h-full">
           {watchingStoryIndex > 1 &&
             renderStoryCardByIndex(watchingStoryIndex - 2)}
           {watchingStoryIndex > 0 &&
