@@ -1,82 +1,69 @@
+'use client';
+
 import DividerWithText from '@/components/core/divider-with-text';
 import { Button } from '@/components/ui/button';
-import useSlideIndex from '@/hooks/useSlideIndex';
+import { Slider } from '@/components/ui/slider';
+import { useCheckClickOutside } from '@/hooks/useCheckClickOutside';
 import { cn } from '@/lib/utils';
 import _ from 'lodash';
-import { ChevronLeft, ChevronRight, Maximize2, ZoomIn } from 'lucide-react';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  AlignEndHorizontal,
+  ChevronLeft,
+  Maximize2,
+  ZoomIn
+} from 'lucide-react';
+import { useRef, useState } from 'react';
+import {
+  DragDropContext,
+  Draggable,
+  DropResult,
+  Droppable,
+} from 'react-beautiful-dnd';
 import {
   ASPECT_RATION_TAILWIND_CLASS,
   AspectOptionKeys,
 } from '../../constants';
-import { useCheckClickOutside } from '@/hooks/useCheckClickOutside';
-import { Slider } from '@/components/ui/slider';
+import ImagesSlider from './images-slider';
 
 type Props = {
   files: FileList | null;
-  handleBackToStepOne: () => void;
+  handleMoveToStep: (step: number) => void;
 };
 
 const ImagesDropReorder = (props: Props) => {
-  const { files, handleBackToStepOne } = props;
-
-  const { index: fileIndex, handleSlideIndex } = useSlideIndex(
-    files ? files.length - 1 : 0
-  );
+  const { files, handleMoveToStep } = props;
 
   const [aspectOption, setAspectOption] =
     useState<AspectOptionKeys>('original');
   const [openAspectOptions, setOpenAspectOptions] = useState(false);
   const [openScaleSlider, setOpenScaleSlider] = useState(false);
+  const [openImagesOrder, setOpenImagesOrder] = useState(false);
   const [scalePercent, setScalePercent] = useState(0);
 
   const imageRef = useRef<HTMLDivElement | null>(null);
   const aspectOptionsRef = useRef<HTMLDivElement | null>(null);
   const scaleSliderRef = useRef<HTMLDivElement | null>(null);
+  const imagesOrderRef = useRef<HTMLDivElement | null>(null);
 
   useCheckClickOutside({
     ref: aspectOptionsRef,
     callback: () => setOpenAspectOptions(false),
   });
   useCheckClickOutside({
-    ref: scaleSliderRef,
+    ref: imagesOrderRef,
     callback: () => setOpenScaleSlider(false),
   });
-
-  const renderImage = useCallback(() => {
-    if (!files || files.length === 0) return null;
-    const file = files[fileIndex];
-    const imgUrl = window.URL.createObjectURL(file);
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <div className={cn('w-fit max-w-full bg-black overflow-hidden', {
-              'max-h-[500px]':
-               aspectOption === '16:9',
-              'max-w-[80%]':
-               aspectOption === '4:5',
-            })}>
-          <img
-            className={cn(`w-full max-h-full object-cover ${ASPECT_RATION_TAILWIND_CLASS[aspectOption]}`, {
-              'w-full h-full ':
-                aspectOption === 'original' || aspectOption === '1:1',
-            })}
-            style={{
-              scale: `${scalePercent + 100}%`,
-            }}
-            alt=""
-            src={imgUrl}
-          />
-        </div>
-      </div>
-    );
-  }, [files, fileIndex, aspectOption, scalePercent]);
+  useCheckClickOutside({
+    ref: imagesOrderRef,
+    callback: () => setOpenImagesOrder(false),
+  });
 
   const renderAspectAndZoomSettings = () => (
-    <div className="absolute bottom-10 left-3 flex items-center gap-2">
+    <div className="flex items-center gap-2">
       <div
         onClick={() => setOpenAspectOptions((prev) => !prev)}
         className={cn(
-          'p-1.5 rounded-full shadow-equal bg-white hover:opacity-70 cursor-pointer'
+          'p-2 rounded-full shadow-equal bg-black/70 text-white hover:opacity-70 cursor-pointer'
         )}
       >
         <Maximize2 size={18} />
@@ -101,7 +88,7 @@ const ImagesDropReorder = (props: Props) => {
       )}
       <div
         className={cn(
-          'p-1.5 rounded-full shadow-equal bg-white hover:opacity-70 cursor-pointer'
+          'p-2 rounded-full shadow-equal bg-black/70 text-white hover:opacity-70 cursor-pointer'
         )}
         onClick={() => setOpenScaleSlider((prev) => !prev)}
       >
@@ -122,13 +109,76 @@ const ImagesDropReorder = (props: Props) => {
     </div>
   );
 
+  const [arr, setArr] = useState(_.range(10));
+
+  const handleOnDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+
+    const items = Array.from(arr);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setArr(items);
+  };
+
+  const renderReorderSection = () => (
+    <>
+      <div
+        onClick={() => setOpenImagesOrder((prev) => !prev)}
+        className={cn(
+          'p-2 rounded-full shadow-equal bg-black/70 text-white hover:opacity-70 cursor-pointer'
+        )}
+      >
+        <AlignEndHorizontal size={18} />
+      </div>
+      {openImagesOrder && (
+        <div
+          ref={imagesOrderRef}
+          className="absolute bottom-10 right-0 h-32 overflow-x-auto w-full bg-black/50 flex gap-1.5 p-3 rounded-xl"
+        >
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable
+              droppableId="images"
+              direction="horizontal"
+              type="column"
+            >
+              {(provided) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="w-fit flex items-center h-full"
+                >
+                  {arr.map((item) => (
+                    <Draggable key={item} draggableId={`${item}`} index={item}>
+                      {(provided) => (
+                        <div
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          className="w-20 h-full bg-white mr-3"
+                        />
+                      )}
+                    </Draggable>
+                  ))}
+                  <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full text-white cursor-pointer hover:opacity-75">
+                    +
+                  </div>
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
+      )}
+    </>
+  );
+
   if (!files) return null;
 
   return (
     <>
       <div className="h-[3%] flex items-center justify-between mt-2.5">
         <ChevronLeft
-          onClick={handleBackToStepOne}
+          onClick={() => handleMoveToStep(1)}
           size={30}
           className="ml-2 cursor-pointer"
         />
@@ -136,6 +186,7 @@ const ImagesDropReorder = (props: Props) => {
         <Button
           className="text-blue-400 font-normal hover:text-primary"
           variant={'justText'}
+          onClick={() => handleMoveToStep(3)}
         >
           Next
         </Button>
@@ -147,26 +198,16 @@ const ImagesDropReorder = (props: Props) => {
         ref={imageRef}
         className="relative h-[97%] w-full overflow-hidden flex"
       >
-        {fileIndex > 0 && (
-          <div
-            onClick={() => handleSlideIndex('decrease')}
-            className="absolute z-[99999] top-[50%] translate-y-[-50%] left-2 p-1.5 rounded-full bg-black hover:opacity-70"
-          >
-            <ChevronLeft size={25} className="cursor-pointer text-white" />
-          </div>
-        )}
+        <ImagesSlider
+          aspectOption={aspectOption}
+          files={files}
+          scalePercent={scalePercent}
+        />
 
-        {renderImage()}
-        {renderAspectAndZoomSettings()}
-
-        {fileIndex !== files?.length! - 1 && (
-          <div
-            onClick={() => handleSlideIndex('increase')}
-            className="absolute z-[99999] top-[50%] translate-y-[-50%] right-2 p-1.5 rounded-full bg-black hover:opacity-70"
-          >
-            <ChevronRight size={25} className="cursor-pointer text-white" />
-          </div>
-        )}
+        <div className="absolute bottom-10 px-4 w-full flex items-center justify-between">
+          {renderAspectAndZoomSettings()}
+          {renderReorderSection()}
+        </div>
       </div>
     </>
   );

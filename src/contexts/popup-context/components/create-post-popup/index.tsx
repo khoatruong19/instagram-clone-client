@@ -4,6 +4,8 @@ import { useCallback, useState } from 'react';
 import ImagesDropReorder from './images-crop-reorder';
 import SelectFiles from './select-files';
 import _ from 'lodash';
+import PostCaption from './post-caption';
+import { cn } from '@/lib/utils';
 
 type Props = {};
 
@@ -18,20 +20,20 @@ const CreatePostPopup = (props: Props) => {
     setCreatePostStep(2);
   };
 
-  const handleBackToStep = (step: number) => setCreatePostStep(step)
-
-  // useEffect(() => {
-
-  // })
+  const handleMoveToStep = (step: number) => setCreatePostStep(step)
 
   const renderStepElement = useCallback(() => {
     if (createPostStep === 1) return <SelectFiles handleOnChangeFiles={handleOnChangeFiles} />;
-    if (createPostStep === 2) return <ImagesDropReorder files={files} handleBackToStepOne={() => handleBackToStep(1)} />;
+    if (createPostStep === 2) return <ImagesDropReorder files={files} handleMoveToStep={handleMoveToStep} />;
+    if (createPostStep === 3) return <PostCaption files={files} handleMoveToStep={handleMoveToStep} />;
     return null;
-  }, [createPostStep]);
+  }, [createPostStep, files]);
 
   return (
-    <div className="w-full mx-2 md:w-[70%] lg:w-[60%] xl:w-[40%] h-full my-2 md:h-[80%] lg:h-[80%] bg-white rounded-xl overflow-hidden">
+    <div className={cn(`mx-2 w-full h-full my-2 md:h-[80vh] lg:h-[80vh] bg-white rounded-xl overflow-hidden`, {
+        "md:w-[70vw] lg:w-[60vw] xl:w-[40vw]": createPostStep !== 3,
+        "md:w-[85vw] lg:w-[75vw] xl:w-[55vw]": createPostStep === 3,
+     })} >
       {renderStepElement()}
     </div>
   );
